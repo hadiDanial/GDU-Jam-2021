@@ -35,3 +35,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+GDUJam2021/Assets/2DKit/*
+GDUJam2021/Assets/TextMesh Pro/*
