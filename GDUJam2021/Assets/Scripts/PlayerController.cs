@@ -9,7 +9,6 @@ public class PlayerController : Entity
 {
     public Hook hook;
 
-
     public delegate void SetHookDirection(Vector2 dir);
     public static event SetHookDirection OnSetHook;
 
@@ -33,7 +32,11 @@ public class PlayerController : Entity
             return;
         input.x = value.Get<float>();
         movementVector = useGravity ? new Vector2(input.x, 0).normalized : input;
+        RotateGFX();
     }
+
+   
+
     public void OnVertical(InputValue value)
     {
         if (!IsActive())
@@ -62,7 +65,7 @@ public class PlayerController : Entity
 
     public void OnMouseAim(InputValue val)
     {
-        Vector2 aim = val.Get<Vector2>();
+        Vector2 aim = Camera.main.ScreenToWorldPoint(val.Get<Vector2>()) - transform.position;
         if (aim != Vector2.zero)
             hook.SetAim(aim);
     }
