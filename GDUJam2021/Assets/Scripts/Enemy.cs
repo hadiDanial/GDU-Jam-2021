@@ -34,10 +34,12 @@ public class Enemy : Entity, IHookable
 
     public void Throw(Vector2 direction)
     {
+        
+        //transform.position = transform.localToWorldMatrix * transform.localPosition;
         transform.SetParent(originalParent);
         rb.isKinematic = false;
         rb.velocity = direction;
-        Invoke("ResetLayer", 0.3f);
+        Invoke("ResetLayer", 1f);
         currentEntityState = EntityState.Active;
     }
 
