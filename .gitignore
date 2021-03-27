@@ -36,4 +36,8 @@ sysinfo.txt
 *.apk
 *.unitypackage
 GDUJam2021/Assets/2DKit/*
+GDUJam2021/AstarPathfindingProject
 GDUJam2021/Assets/TextMesh Pro/*
+GDUJam2021/Assets/AstarPathfindingProject/
+GDUJam2021/Assets/Plugins/
+GDUJam2021/Assets/Samples/
