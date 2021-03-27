@@ -34,6 +34,9 @@ public class Entity : MonoBehaviour
     internal float groundCheckDistance = 0.1f;
     internal int internalSpeedMultiplier = 1000;
 
+    [Header("Other")]
+    [SerializeField] internal GameObject GFX;
+
 
     internal Rigidbody2D rb;
     internal Collider2D col;
@@ -265,7 +268,18 @@ public class Entity : MonoBehaviour
     {
         isCollided = false;
     }
-
+    internal void RotateGFX()
+    {
+        if (GFX == null) return;
+        if (input.x < 0)
+        {
+            GFX.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            GFX.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
     private void OnDrawGizmos()
     {
         if (groundCheckLeft == null || groundCheckRight == null || groundCheckMiddle == null) return;
