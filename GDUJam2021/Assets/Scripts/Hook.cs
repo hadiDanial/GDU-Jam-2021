@@ -1,157 +1,55 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.U2D;
 
+[RequireComponent(typeof(SpriteShapeController))]
 public class Hook : MonoBehaviour
 {
-    [SerializeField] private GameObject arrow;
-    [SerializeField] private Transform holdPoint, backthrowTarget;
-    [SerializeField] private IHookable targetHookable;
-    [SerializeField] private float hookDistance = 3f;
-    [SerializeField] private float throwSpeed = 2.5f;
-    [SerializeField] private float reelTime = 0.75f, backthowTime = 0.75f;
-    [SerializeField] private float swingRadius = 2.5f, swingSpeed = 10;
-    [SerializeField] private float aimRadius = 0.2f;
-    [SerializeField] private LayerMask hookLayer;
-    [SerializeField] private HookState state;
+    SpriteShapeController controller;
 
-    private Vector2 aimDirection;
-    private Transform playerTransform, targetTransform;
-    private Vector3 defaultHoldPosition;
-    private Coroutine reelCoroutine;
-    bool toHold = false, forcePosition = false;
-    private float swingPercent;
-
-
-    private void Start()
+    public Vector2[] splinePositions = { Vector2.zero, Vector2.right * 0.5f, Vector2.right * 3f, Vector2.right * 3.5f, Vector2.right * 4f };
+    private void Awake()
     {
-        defaultHoldPosition = holdPoint.position;
+        controller = GetComponent<SpriteShapeController>();
+        SetSpline();
+
     }
 
-    internal void SetPlayer(Transform transform)
+    public void ActivateSpriteShape(bool val)
     {
-        playerTransform = transform;
+        controller.enabled = val;
     }
 
-    internal void SetAim(Vector2 dir, bool useArrow = true)
+    [ContextMenu("Set Spline")]
+    private void SetSpline()
     {
-        aimDirection = dir.normalized;
-        if(useArrow)
+        if(controller == null) controller = GetComponent<SpriteShapeController>();
+
+        //controller.spline.Clear();
+
+        controller.spline.SetPosition(0, splinePositions[0]);
+        controller.spline.SetPosition(1, splinePositions[1]);
+        //controller.spline.SetTangentMode(0, ShapeTangentMode.Linear);
+        //controller.spline.SetTangentMode(1, ShapeTangentMode.Broken);
+        controller.spline.SetSpriteIndex(0, 1);
+        controller.spline.SetSpriteIndex(1, 0);
+        for (int i = 2; i < splinePositions.Length - 2; i++)
         {
-            arrow.SetActive(true);
-            arrow.transform.right = aimDirection;
+            //controller.spline.SetRightTangent(i - 1, (splinePositions[i] - splinePositions[i - 1])/2f);
+            controller.spline.SetPosition(i, splinePositions[i]);
+            //controller.spline.SetTangentMode(i, ShapeTangentMode.Continuous);
+            //controller.spline.SetLeftTangent(i, splinePositions[i + 1] - splinePositions[i]);
         }
-        else
-        {
-            arrow.SetActive(false);
-        }
-        backthrowTarget.localPosition = -aimDirection;
-        //if (state == HookState.Held)
-        //    target.SetPosition((Vector2)transform.position + aimDirection.normalized * swingRadius);
+
+        int lastTwo = splinePositions.Length - 2;
+        controller.spline.SetPosition(lastTwo, splinePositions[lastTwo]);
+        //controller.spline.SetTangentMode(lastTwo, ShapeTangentMode.Broken);
+        controller.spline.SetPosition(lastTwo, splinePositions[lastTwo] - (splinePositions[lastTwo-1] - splinePositions[lastTwo]).normalized*0.5f);
+        controller.spline.SetSpriteIndex(lastTwo, 2);
+        lastTwo++;
+        //controller.spline.SetTangentMode(lastTwo, ShapeTangentMode.Linear);
+
+        controller.RefreshSpriteShape();
     }
-
-    internal void HookObject()
-    {
-        forcePosition = false;
-        if (state == HookState.Empty)
-        {
-            toHold = true;
-            GrabObject(reelTime, holdPoint, false);
-        }
-        else 
-            ThrowHookedObject();       
-    }
-
-    private void ThrowHookedObject()
-    {
-        if (state == HookState.Held)
-        {
-            targetHookable.Throw(aimDirection * throwSpeed);
-        }
-        else if (state == HookState.Swinging)
-        {
-
-        }
-            state = HookState.Empty;
-    }
-
-    private void GrabObject(float time, Transform targetT, bool throwObject = false)
-    {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, aimRadius, aimDirection, hookDistance, hookLayer);
-        if (hit)
-        {
-            targetHookable = hit.collider.GetComponent<IHookable>();
-            targetHookable.Hook(transform);
-            targetTransform = hit.transform;
-            state = HookState.Hooked;
-            targetTransform.DOLocalMove(targetT.localPosition, time);
-            if (throwObject)
-                Invoke("Throw", time - 0.1f);
-            else
-                Invoke("EndGrab", time-0.1f);
-            Debug.Log("Hit!");
-        }
-        else Debug.Log("No hits");
-    }
-
-   private void EndGrab()
-    {
-        if(toHold)
-        {
-            toHold = false;
-            forcePosition = true;
-            state = HookState.Held;
-        }
-
-    }
-    internal void Swing()
-    {
-        if (state == HookState.Held)
-            StartSwing();
-        else if (state == HookState.Swinging)
-            EndSwing();
-    }
-    private void StartSwing()
-    {
-        swingPercent = 0;
-    }
-
-    private void EndSwing()
-    {
-        swingPercent = 0;
-    }
-
-
-    internal void Backthrow()
-    {
-        if(state == HookState.Empty)
-        {
-
-        }
-    }
-
-
-    private void OnDrawGizmos()
-    {
-        if (playerTransform != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(playerTransform.position, hookDistance);
-
-        }
-        if (backthrowTarget != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(backthrowTarget.position, 0.25f);
-        }
-
-        }
-    }
-
-public enum HookState
-{
-    Empty, Hooked, Held, Swinging, Backthrow
 }
-

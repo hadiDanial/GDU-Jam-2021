@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Hook))]
+[RequireComponent(typeof(HookController))]
 public class PlayerController : Entity
 {
-    public Hook hook;
+    public HookController hook;
 
     public delegate void SetHookDirection(Vector2 dir);
     public static event SetHookDirection OnSetHook;
@@ -15,7 +15,7 @@ public class PlayerController : Entity
     internal override void Awake()
     {
         base.Awake();
-        hook = GetComponent<Hook>();
+        hook = GetComponent<HookController>();
         hook.SetPlayer(transform);
     }
 

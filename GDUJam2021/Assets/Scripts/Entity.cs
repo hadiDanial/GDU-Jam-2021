@@ -275,7 +275,7 @@ public class Entity : MonoBehaviour
         {
             GFX.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else
+        else if(input.x > 0)
         {
             GFX.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
