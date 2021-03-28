@@ -160,7 +160,7 @@ public class Hook : MonoBehaviour
         Transform p;
         if (returnPos == null) p = restPosition;
         else p = returnPos;
-        if (hookController.playerController._isGrounded)
+        if (hookController.playerController.isGrounded)
         {
             p.transform.position = new Vector3(p.transform.position.x, hookController.transform.position.y);
         }

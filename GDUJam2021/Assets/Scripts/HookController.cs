@@ -72,7 +72,7 @@ public class HookController : MonoBehaviour
         {
             hookGameObject.SetActive(false);
         }
-        if (playerController._isGrounded)
+        if (playerController.isGrounded)
             aimDirection = new Vector2(aimDirection.x, Mathf.Clamp(aimDirection.y, 0, 2));
         if (!lockBackthrowTarget)
             backthrowTarget.localPosition = -aimDirection * hookDistance;

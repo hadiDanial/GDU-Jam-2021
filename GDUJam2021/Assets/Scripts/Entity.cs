@@ -18,7 +18,7 @@ public class Entity : MonoBehaviour
                      protected float airControlPercent = 0.45f;
     [SerializeField] protected bool useGravity;
     [SerializeField, Tooltip("This is only to show whether the entity is grounded. Can not modify.")] 
-                     protected bool isGrounded;
+                     internal bool isGrounded;
     [SerializeField] protected float normalGravity = 1, fallGravity = 2;
 
     [Header("Health")]

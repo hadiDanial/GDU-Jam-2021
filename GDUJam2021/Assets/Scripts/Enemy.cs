@@ -41,6 +41,7 @@ public class Enemy : Entity, IHookable
         transform.localPosition = Vector2.zero;
         spriteRenderer.color = heldColor;
         currentEntityState = EntityState.Inactive;
+        enemyAI.PauseAI();
         CancelInvoke();
     }
     public void Hold()
@@ -59,7 +60,6 @@ public class Enemy : Entity, IHookable
         rb.isKinematic = false;
         rb.velocity = direction;
         Invoke("ResetLayer", 1f);
-        currentEntityState = EntityState.Active;
     }
 
     public Rigidbody2D GetRB()
@@ -71,6 +71,8 @@ public class Enemy : Entity, IHookable
         gameObject.layer = enemyLayer;
         isHeld = false;
         spriteRenderer.color = normalColor;
+        currentEntityState = EntityState.Active;
+
     }
     #endregion
 

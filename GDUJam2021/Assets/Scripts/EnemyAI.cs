@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using System;
 
 [RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
@@ -11,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] internal float attackDistance = 0.75f, attackTime = 0.5f, timeBetweenAttacks = 1f;
     [SerializeField] internal float detectionRadius = 5f;
     [SerializeField] internal float minJumpHeight = 0.25f, minJumpDistance = 0.75f;
+    [SerializeField] internal bool canAttackInAir = false;
     [SerializeField] internal bool canAttackVertically = false;
     [SerializeField] internal bool canDamagePlayer = false;
     [SerializeField] public List<Transform> patrolPoints;
@@ -23,6 +25,7 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody2D rb;
     private Transform target, prevTarget;
     private PlayerController playerController;
+    private Coroutine attackCoroutine;
     private int patrolIndex, pathIndex;
     private float timeToAttack = 0;
     private bool followingPlayer = false;
@@ -61,6 +64,15 @@ public class EnemyAI : MonoBehaviour
             pathIndex = 0;
             waitForRepath = false;
         }
+    }
+
+    internal void PauseAI()
+    {
+        if (attackCoroutine != null)
+            StopCoroutine(attackCoroutine);
+        canAttack = true;
+        doneAttacking = true;
+        canDamagePlayer = false;
     }
 
 
@@ -131,8 +143,6 @@ public class EnemyAI : MonoBehaviour
 
     internal virtual void EnemyMovement()
     {
-        // Check if player is in radius
-
         enemy.input = ((Vector2)path.vectorPath[pathIndex] - rb.position).normalized;
         enemy.SetMovementVector();
         Jump();
@@ -165,7 +175,10 @@ public class EnemyAI : MonoBehaviour
     public void Attack()
     {
         if (!canAttack) return;
-        StartCoroutine(AttackCoroutine());
+        if (!canAttackInAir && !enemy.isGrounded) return;
+        if (attackCoroutine != null)
+            StopCoroutine(attackCoroutine);
+        attackCoroutine = StartCoroutine(AttackCoroutine());
     }
 
     public IEnumerator AttackCoroutine()
@@ -184,9 +197,9 @@ public class EnemyAI : MonoBehaviour
         myTween = rb.DOMove(originalPosition, attackTime / 2f);
         yield return myTween.WaitForCompletion();
         timeToAttack = timeBetweenAttacks;
-        canAttack = true;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(1f);
+        canAttack = true;
         doneAttacking = true;
     }
 
