@@ -68,6 +68,14 @@
                     "expectedControlType": "Axis",
                     "processors": "StickDeadzone",
                     "interactions": ""
+                },
+                {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "b1f3a437-a948-4120-890a-28532ee34a48",
+                    "expectedControlType": "Button",
+                    "processors": "StickDeadzone",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -378,6 +386,28 @@
                     "action": "Vertical",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "73a40abd-b164-462e-a0a2-19a37711a6de",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e24b94c5-67a5-4889-a5ac-3ddc372a28a3",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

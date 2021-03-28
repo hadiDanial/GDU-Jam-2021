@@ -81,6 +81,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": ""StickDeadzone"",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1f3a437-a948-4120-890a-28532ee34a48"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""StickDeadzone"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -391,6 +399,28 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Vertical"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""73a40abd-b164-462e-a0a2-19a37711a6de"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e24b94c5-67a5-4889-a5ac-3ddc372a28a3"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -654,6 +684,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Player_GamepadAim = m_Player.FindAction("GamepadAim", throwIfNotFound: true);
         m_Player_Horizontal = m_Player.FindAction("Horizontal", throwIfNotFound: true);
         m_Player_Vertical = m_Player.FindAction("Vertical", throwIfNotFound: true);
+        m_Player_Reset = m_Player.FindAction("Reset", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Movement = m_Menu.FindAction("Movement", throwIfNotFound: true);
@@ -716,6 +747,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_GamepadAim;
     private readonly InputAction m_Player_Horizontal;
     private readonly InputAction m_Player_Vertical;
+    private readonly InputAction m_Player_Reset;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -728,6 +760,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @GamepadAim => m_Wrapper.m_Player_GamepadAim;
         public InputAction @Horizontal => m_Wrapper.m_Player_Horizontal;
         public InputAction @Vertical => m_Wrapper.m_Player_Vertical;
+        public InputAction @Reset => m_Wrapper.m_Player_Reset;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -761,6 +794,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Vertical.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnVertical;
                 @Vertical.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnVertical;
                 @Vertical.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnVertical;
+                @Reset.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
+                @Reset.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
+                @Reset.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -789,6 +825,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Vertical.started += instance.OnVertical;
                 @Vertical.performed += instance.OnVertical;
                 @Vertical.canceled += instance.OnVertical;
+                @Reset.started += instance.OnReset;
+                @Reset.performed += instance.OnReset;
+                @Reset.canceled += instance.OnReset;
             }
         }
     }
@@ -870,6 +909,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnGamepadAim(InputAction.CallbackContext context);
         void OnHorizontal(InputAction.CallbackContext context);
         void OnVertical(InputAction.CallbackContext context);
+        void OnReset(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
