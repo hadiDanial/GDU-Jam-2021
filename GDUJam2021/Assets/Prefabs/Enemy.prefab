@@ -41,11 +41,10 @@ GameObject:
   - component: {fileID: 2478569875966020108}
   - component: {fileID: 2478569875966020111}
   - component: {fileID: 2478569875966020110}
+  - component: {fileID: 1722506587}
   - component: {fileID: 2478569875966020105}
   - component: {fileID: 2780870127762348964}
-  - component: {fileID: 1722506584}
   - component: {fileID: 1722506586}
-  - component: {fileID: 1722506587}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -119,7 +118,7 @@ MonoBehaviour:
   groundCheckMiddle: {fileID: 2478569876452784599}
   groundMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 8448
   enemyMask:
     serializedVersion: 2
     m_Bits: 4608
@@ -132,6 +131,30 @@ MonoBehaviour:
   heldEnemyLayer: 10
   originalParent: {fileID: 0}
   isHeld: 0
+--- !u!114 &1722506587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2478569875966020104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e24f810216fa183479c2b2746f26fd99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDistance: 0.75
+  attackTime: 0.5
+  detectionRadius: 5
+  minJumpHeight: 0.25
+  minJumpDistance: 0.75
+  canDamagePlayer: 0
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  nextWaypointDistance: 0.65
 --- !u!50 &2478569875966020105
 Rigidbody2D:
   serializedVersion: 4
@@ -249,20 +272,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1722506584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2478569875966020104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  target: {fileID: 0}
 --- !u!114 &1722506586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,30 +300,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &1722506587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2478569875966020104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e24f810216fa183479c2b2746f26fd99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDistance: 0.75
-  attackTime: 0.5
-  detectionRadius: 5
-  minJumpHeight: 0.25
-  minJumpDistance: 1
-  canDamagePlayer: 0
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  nextWaypointDistance: 0.65
 --- !u!1 &2478569876450128887
 GameObject:
   m_ObjectHideFlags: 0

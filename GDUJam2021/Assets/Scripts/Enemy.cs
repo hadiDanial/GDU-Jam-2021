@@ -88,13 +88,6 @@ public class Enemy : Entity, IHookable
             }
             Damage(1);
         }
-        else
-        {
-            PlayerController p = other.GetComponent<PlayerController>();
-            if (enemyAI.canDamagePlayer && p != null)
-                p.Damage(1, true);
-        }
-
     }
 
     private void OnDestroy()
