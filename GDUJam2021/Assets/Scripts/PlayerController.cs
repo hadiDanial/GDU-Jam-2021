@@ -19,6 +19,7 @@ public class PlayerController : Entity
         hook.SetPlayer(transform);
     }
 
+    #region Input
     public void OnMovement(InputValue value)
     {
         if (!IsActive())
@@ -26,7 +27,6 @@ public class PlayerController : Entity
         input = value.Get<Vector2>();
         SetMovementVector();
     }
-
 
     public void OnHorizontal(InputValue value)
     {
@@ -36,8 +36,6 @@ public class PlayerController : Entity
         SetMovementVector();
     }
 
-
-
     public void OnVertical(InputValue value)
     {
         if (!IsActive())
@@ -45,20 +43,24 @@ public class PlayerController : Entity
         input.y = value.Get<float>();
         movementVector = useGravity ? new Vector2(input.x, 0).normalized : input;
     }
+
     public void OnJump()
     {
         if (!IsActive())
             return;
         Jump();
     }
+
     public void OnHook()
     {
         hook.HookObject();
     }
+
     public void OnSwing()
     {
         hook.Swing();
     }
+
     public void OnBackthrow()
     {
         hook.Backthrow();
@@ -69,7 +71,6 @@ public class PlayerController : Entity
         Vector2 aim = Camera.main.ScreenToWorldPoint(val.Get<Vector2>()) - transform.position;
         SetAim(aim);
     }
-
 
     public void OnGamepadAim(InputValue val)
     {
@@ -87,5 +88,20 @@ public class PlayerController : Entity
         hook.SetAim(aim);
         RotateGFX(aim);
         prevAim = aim;
+    }
+    #endregion
+
+    internal override void Kill()
+    {
+        // TODO - Kill the Entity
+        currentEntityState = EntityState.Dead;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        spriteRenderer.color = deadColor;
+        if (col != null) col.isTrigger = true;
+        // TODO - Sound effect here
+        audioSource.PlayOneShot(deathSound);
+        CancelInvoke();
+        //Destroy(gameObject, 0.5f);
     }
 }
