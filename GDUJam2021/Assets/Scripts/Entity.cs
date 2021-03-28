@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Entity : MonoBehaviour
 {
     [Header("Movement")]
@@ -35,9 +36,13 @@ public class Entity : MonoBehaviour
     internal int internalSpeedMultiplier = 1000;
 
     [Header("Other")]
-    [SerializeField] internal GameObject GFX;
+    [SerializeField] protected GameObject GFX;
+    [SerializeField] internal SpriteRenderer spriteRenderer;
+    [SerializeField] public Color normalColor;
+    [SerializeField] public Color heldColor;
+    [SerializeField] public Color deadColor;
 
-
+    internal AudioSource audioSource;
     internal Rigidbody2D rb;
     internal Collider2D col;
     internal Animator anim;
@@ -65,6 +70,10 @@ public class Entity : MonoBehaviour
         Move();
     }
 
+    internal void SetMovementVector()
+    {
+        movementVector = useGravity ? new Vector2(input.x, 0).normalized : input;
+    }
     internal virtual void Move()
     {
         isGrounded = _isGrounded;
@@ -121,7 +130,10 @@ public class Entity : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
         col = GetComponent<Collider2D>();
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (col != null) col.isTrigger = false;
+        audioSource = GetComponent<AudioSource>();
         SetEntityState();
     }
 
@@ -216,8 +228,13 @@ public class Entity : MonoBehaviour
         // TODO - Kill the Entity
         currentEntityState = EntityState.Dead;
         rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        spriteRenderer.color = deadColor;
         if (col != null) col.isTrigger = true;
         // TODO - Sound effect here
+        audioSource.PlayOneShot(deathSound);
+        CancelInvoke();
+        Destroy(gameObject, 0.5f);
     }
     internal virtual void SetInvulnerable()
     {
@@ -268,14 +285,14 @@ public class Entity : MonoBehaviour
     {
         isCollided = false;
     }
-    internal void RotateGFX()
+    internal void RotateGFX(Vector2 dir)
     {
         if (GFX == null) return;
-        if (input.x < 0)
+        if (dir.x < 0)
         {
             GFX.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else if(input.x > 0)
+        else if(dir.x > 0)
         {
             GFX.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
