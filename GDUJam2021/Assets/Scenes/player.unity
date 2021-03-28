@@ -223,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48545600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.75, y: -4.13, z: 0}
+  m_LocalPosition: {x: 7.006, y: -4.03, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1058,78 +1058,6 @@ Transform:
   m_Father: {fileID: 1748348683}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1722506578 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2478569875966020104, guid: 04a8be98dc767fe418b04dbc4d5f52f6,
-    type: 3}
-  m_PrefabInstance: {fileID: 2478569876590160602}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1722506584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722506578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  target: {fileID: 0}
---- !u!114 &1722506586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722506578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: -1
---- !u!114 &1722506587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722506578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e24f810216fa183479c2b2746f26fd99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDistance: 0.75
-  attackTime: 0.5
-  detectionRadius: 5
-  minJumpHeight: 0.25
-  minJumpDistance: 1
-  canDamagePlayer: 0
-  patrolPoints:
-  - {fileID: 314354269}
-  - {fileID: 302476247}
-  - {fileID: 1633727469}
-  - {fileID: 1883282565}
-  nextWaypointDistance: 0.65
 --- !u!1 &1748348682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAQIeyHxCHHUgIAAPYEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMuS2jAQ/BVK55Di4V1wbolh2RxYqCWpvfgi7DFWIUsuPZZX8e8ZyTZ2nMoJ0dMz6ukZ+UaY0CUkRqqVYulapkC+DYg7ky+DNvgKZ3qQYseu0HA+WGpyR6Ke804Nk4iPXZqWBRjFku/iwB15hKAVLJOqWKYHiKQ2GuGMcg0YUtK4bIHQbUDO+DMMXcoFT5OZO13xFI4GdzwmIAyoltoQG1rFsiLhtCghdZJb8qRhjyuawGZqhhOeSM6ZrpUQcyl9pxEttcU+kJAyip3560dfnxDIgR1y4yp30zdZpsHUohS9LJhCi6q65IesfCuoPlbKPim3XsLkKQi8rqrs+h/GcOzDmZLFa3PzeORuMTlLju/0klBtOtZ24UUrfuwtOlF+pHsOHzmIN7lS0ooUg0ZZl2o1TBbt30dzUQ7JscUrqT3Qlv8fkOvh7vs/R5wVe+9lUAE7Lr3nfvygcDo/UbBfDl2XQNSp+K3hFz10t6gOvDClDYbqLoWTt5dWOSpZes9cN9ZEUgnwcC26BEG5uWyxjOkPsRfrXNuLvFD3XurL61jzDHopHm75o1EvtJWnx7B0Lk9r0PnGGs4EtKJd4A19iqQQ1Y51PWnSdlZlNOmkHSxL/14tMqfz2TTI6PNzMJ+H+3A4nc2nEIbhZDYPZvvxhPjdYwL7pHxbCa3twamJtrjAPWs+I4OVoqXf91TR04pdC9mxnIlM7hIFIDZVhYdwUHgJvsx0mTI0aAfGMOHnTW4x4TI5Qho/CsW+0+XZKBq3VWJSsk9pHBKTyH83YnIn9z9QSwMEFAAACAgAABAh7B864uhtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tJJFooW5sUlaopmZiYWFZZKlrrG5hXGqpaWlkbmFiXmSoZFSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAABAh7IfEIcdSAgAA9gQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAABAh7B864uhtAAAAeAAAAAkAJAAAAAAAAAAAAAAAnwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABXAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAQIexcn1quUwIAAPcEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMuS2jAQ/BVK55DChl1wbolh2RxYqCWpvfgi7DFWIUsuPZZX8e8ZyTZ2SOWE6OkZ9fSMfCVM6ApSI9VSsWwlMyDfBsSdyZdBF3yFE91LsWUXaDkfLDOFI1HPeaeGScQDl6ZlCUax9LvYc0ceIWgFy6UqF9keYqmNRjinXAOGlDQuWyB0HZAT/gwjl3LGUzh1pwueotHghscUhAHVUVtiS6tZVqSclhVkTnJHDlt2UNMENtMwnPBUcs50o4SYc+U7jWmlLfaBhIxR7MxfP/oaPiFSANsXxpXu56/zXINpVCl6njOFHtWFyQ9ZG1dSfailfVJuvYbwaTLxwuqyq38Yw8CHcyXL1/bmYORuMQVLD+/0nFJtet724XmnPvAeHSk/0B2HjwLEm1wqaUWGQaOsS7Uawnn3995cXEB66PBa6gNoq/9PyPVw8/2fYs7KnTdzUgNbLr3pfv6gcDw/UbDfDt2UQNSp+K3hF93316gJvDClDYaaLoWTt5NWOSpZeM9cN9bEUgnwcCO6AkG5OW+wjHkc4kOsd+1D5IW6B9Nc3sTad/CQ4uGOPxo9hDbyeB+WLuRxBbpYW8OZgE60C7yhT7EUot6xvidt2taqnKa9tL1l2d+rRWZ0Nh1Pcvr8PJnNol00HE9nY4iiKJzOJtNdEBK/e0xgn5RvaqGNPTg10RUXuGftd2SwVLTy+54pelyySyl7ljORy22qAMS6rnAXDgovwaeZLTKGBm3BGCb8vMk1IVymB8iSe6HEd7o4GUWTrkpCKvYpjUMSEvsPR0Ju5PYHUEsDBBQAAAgIAAAQIewfOuLobQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrSSRaKFubFJWqKZmYmFhWWSpa6xuYVxqqWlpZG5hYl5kqGRUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAQIexcn1quUwIAAPcEAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAQIewfOuLobQAAAHgAAAAJACQAAAAAAAAAAAAAAKACAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAWAMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 4900000, guid: dbca279501a7d1e4f9f2ba5cf15c0eed,
       type: 3}
@@ -1521,7 +1449,7 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 0
+  showGraphs: 1
 --- !u!4 &2120934845
 Transform:
   m_ObjectHideFlags: 0
@@ -1543,20 +1471,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1722506587, guid: 04a8be98dc767fe418b04dbc4d5f52f6, type: 3}
+      propertyPath: patrolPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 314354269}
+    - target: {fileID: 1722506587, guid: 04a8be98dc767fe418b04dbc4d5f52f6, type: 3}
+      propertyPath: patrolPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 302476247}
+    - target: {fileID: 1722506587, guid: 04a8be98dc767fe418b04dbc4d5f52f6, type: 3}
+      propertyPath: patrolPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 1633727469}
+    - target: {fileID: 1722506587, guid: 04a8be98dc767fe418b04dbc4d5f52f6, type: 3}
+      propertyPath: patrolPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 1883282565}
+    - target: {fileID: 1722506587, guid: 04a8be98dc767fe418b04dbc4d5f52f6, type: 3}
+      propertyPath: minJumpDistance
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 2478569875966020104, guid: 04a8be98dc767fe418b04dbc4d5f52f6,
         type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 2478569875966020105, guid: 04a8be98dc767fe418b04dbc4d5f52f6,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2478569875966020105, guid: 04a8be98dc767fe418b04dbc4d5f52f6,
-        type: 3}
-      propertyPath: m_Mass
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2478569875966020108, guid: 04a8be98dc767fe418b04dbc4d5f52f6,
         type: 3}
@@ -1615,13 +1553,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2478569875966020110, guid: 04a8be98dc767fe418b04dbc4d5f52f6,
         type: 3}
-      propertyPath: movementSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2478569875966020110, guid: 04a8be98dc767fe418b04dbc4d5f52f6,
-        type: 3}
-      propertyPath: jumpForce
-      value: 3
+      propertyPath: groundMask.m_Bits
+      value: 8448
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04a8be98dc767fe418b04dbc4d5f52f6, type: 3}

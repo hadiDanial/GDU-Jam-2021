@@ -74,8 +74,9 @@ public class Enemy : Entity, IHookable
     }
     #endregion
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    internal override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         GameObject other = collision.gameObject;
         Entity entity = other.GetComponent<Entity>();
         if (!isHeld) return;

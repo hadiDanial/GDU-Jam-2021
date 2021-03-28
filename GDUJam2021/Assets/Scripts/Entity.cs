@@ -80,7 +80,6 @@ public class Entity : MonoBehaviour
         if (IsActive())
         {
             jumpTimeElapsed = isGrounded ? jumpGracePeriod : jumpTimeElapsed - Time.deltaTime;
-            //rb.gravityScale = (isGrounded && !hasJumped) || (isGrounded && isCollided) ? 0 : gravityObj.GetCurrentGravity();
             if (input != Vector2.zero)
             {
                 currentMovementMultiplier = isGrounded ? 1 : airControlPercent;
@@ -268,7 +267,7 @@ public class Entity : MonoBehaviour
         return false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    internal virtual void OnCollisionEnter2D(Collision2D collision)
     {
         isCollided = true;
         if (_isGrounded)

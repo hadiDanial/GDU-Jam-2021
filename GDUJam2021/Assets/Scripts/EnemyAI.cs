@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour
     private bool canAttack = true;
     private int patrolIndex, pathIndex;
     private bool reachedEndOfPath;
+    private bool waitForRepath;
 
     private void Awake()
     {
@@ -77,10 +78,12 @@ public class EnemyAI : MonoBehaviour
 
     private void Jump()
     {
-        float yDiff = path.vectorPath[pathIndex].y  - rb.position.y;
+        float yDiff = path.vectorPath[pathIndex].y - rb.position.y;
         float xDiff = Mathf.Abs(path.vectorPath[pathIndex].x - rb.position.x);
+
+        if (target.position.y < rb.position.y) waitForRepath = true;
         
-        if (yDiff >= minJumpHeight && xDiff < minJumpDistance)
+        if (yDiff >= minJumpHeight && xDiff < minJumpDistance && !waitForRepath)
         {
             enemy.Jump();
         }
@@ -102,6 +105,7 @@ public class EnemyAI : MonoBehaviour
         {
             path = p;
             pathIndex = 0;
+            waitForRepath = false;
         }
     }
     public void Attack()
