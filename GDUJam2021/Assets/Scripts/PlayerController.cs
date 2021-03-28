@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(HookController))]
 public class PlayerController : Entity
 {
+    public AudioClip hookSound, throwSound;
     public HookController hook;
 
-    public delegate void SetHookDirection(Vector2 dir);
-    public static event SetHookDirection OnSetHook;
+    Vector2 prevAim = Vector2.right;
 
     internal override void Awake()
     {
@@ -24,18 +24,19 @@ public class PlayerController : Entity
         if (!IsActive())
             return;
         input = value.Get<Vector2>();
-        movementVector = useGravity ? new Vector2(input.x, 0).normalized : input;
+        SetMovementVector();
     }
+
+
     public void OnHorizontal(InputValue value)
     {
         if (!IsActive())
             return;
         input.x = value.Get<float>();
-        movementVector = useGravity ? new Vector2(input.x, 0).normalized : input;
-        RotateGFX();
+        SetMovementVector();
     }
 
-   
+
 
     public void OnVertical(InputValue value)
     {
@@ -58,7 +59,7 @@ public class PlayerController : Entity
     {
         hook.Swing();
     }
-    public void OnOnBackthrow()
+    public void OnBackthrow()
     {
         hook.Backthrow();
     }
@@ -66,16 +67,25 @@ public class PlayerController : Entity
     public void OnMouseAim(InputValue val)
     {
         Vector2 aim = Camera.main.ScreenToWorldPoint(val.Get<Vector2>()) - transform.position;
-        if (aim != Vector2.zero)
-            hook.SetAim(aim);
+        SetAim(aim);
     }
+
+
     public void OnGamepadAim(InputValue val)
     {
         //cursor.SetGamepad(val.Get<Vector2>());
         Vector2 aim = val.Get<Vector2>();
-        if (aim != Vector2.zero)
-            hook.SetAim(aim);
+        SetAim(aim);
     }
 
-
+    private void SetAim(Vector2 aim)
+    {
+        if (aim == Vector2.zero)
+        {
+            aim = prevAim;
+        }
+        hook.SetAim(aim);
+        RotateGFX(aim);
+        prevAim = aim;
+    }
 }
