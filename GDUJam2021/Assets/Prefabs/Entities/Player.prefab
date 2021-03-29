@@ -182,7 +182,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2079762469
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 3648026787219991210, guid: 7b0dbe6e8925ae6428c5878c6df66468,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -375,7 +375,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2079762469
   m_SortingLayer: 3
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 4995409598164864428, guid: 7b0dbe6e8925ae6428c5878c6df66468,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -453,7 +453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1858605389
 Transform:
   m_ObjectHideFlags: 0
@@ -507,9 +507,9 @@ SpriteShapeRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -2079762469
+  m_SortingLayer: 3
+  m_SortingOrder: 4
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 0}
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookHead: {fileID: 1781740560}
-  restPosition: {fileID: 43660770}
+  restPosition: {fileID: 365658285}
   hitPosition: {fileID: 622311583}
   hookController: {fileID: 7778866689749664974}
   canCollide: 0
