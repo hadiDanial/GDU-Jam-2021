@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2478569875731513914}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4, y: -0.42, z: 0}
+  m_LocalPosition: {x: 0.4, y: -0.50699985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2478569875966020108}
@@ -83,7 +83,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.04}
   serializedVersion: 2
   m_Radius: 0.5
 --- !u!114 &2478569875966020110
@@ -110,7 +110,7 @@ MonoBehaviour:
   fallGravity: 2
   maxHealth: 1
   currentHealth: 0
-  invulnerabilityTime: 0.15
+  invulnerabilityTime: 0.3
   currentEntityState: 0
   hitSound: {fileID: 0}
   deathSound: {fileID: 8300000, guid: e18959d46b63f3c4c8cc020a433cf848, type: 3}
@@ -122,13 +122,13 @@ MonoBehaviour:
     m_Bits: 8448
   enemyMask:
     serializedVersion: 2
-    m_Bits: 4608
+    m_Bits: 12800
   GFX: {fileID: 2478569877311851993}
   spriteRenderer: {fileID: 2478569876787129982}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  heldColor: {r: 0.3726415, g: 0.56243044, b: 1, a: 1}
-  deadColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
-  damageColor: {r: 0.7058824, g: 0.36862746, b: 0.36862746, a: 1}
+  normalColor: {r: 0.9245283, g: 0.18923093, b: 0, a: 1}
+  heldColor: {r: 0.23467246, g: 0.7657023, b: 1.9900227, a: 1}
+  deadColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
+  damageColor: {r: 2, g: 0.18039216, b: 0.18039216, a: 1}
   enemyLayer: 9
   heldEnemyLayer: 10
   originalParent: {fileID: 0}
@@ -159,6 +159,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  idleSprite: {fileID: 21300000, guid: dcb4b5679f445fa439650d5deeabb43f, type: 3}
+  attackSprite: {fileID: 21300000, guid: feadd9678b20f864fb53ba5a204573fd, type: 3}
+  deadSprite: {fileID: 21300000, guid: bec18004194f7c946a38efd909ef0055, type: 3}
+  heldSprite: {fileID: 21300000, guid: aa0edb04f7524044b91b5d1a2fa7c8c7, type: 3}
   nextWaypointDistance: 0.8
 --- !u!50 &2478569875966020105
 Rigidbody2D:
@@ -329,7 +333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2478569876450128887}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4, y: -0.42, z: 0}
+  m_LocalPosition: {x: -0.4, y: -0.50699985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2478569875966020108}
@@ -359,7 +363,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2478569876452784599}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.42, z: 0}
+  m_LocalPosition: {x: 0, y: -0.507, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2478569875966020108}
@@ -391,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 2478569876787129976}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.033, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 2478569877311851998}
   m_RootOrder: 0
@@ -414,7 +418,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 241ac5631277fa54c951cfa0208494d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -432,11 +436,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300060, guid: fe68c6e1242e94a9eab222e1f49440ff, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_SortingLayerID: -2079762469
+  m_SortingLayer: 3
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: dcb4b5679f445fa439650d5deeabb43f, type: 3}
+  m_Color: {r: 0.9245283, g: 0.18923093, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
