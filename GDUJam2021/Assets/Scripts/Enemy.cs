@@ -15,7 +15,7 @@ public class Enemy : Entity, IHookable
     [SerializeField] bool rotateToDirection = false;
 
     private EnemyAI enemyAI;
-    private float mass, drag;
+    internal float mass, drag;
 
     internal override void Awake()
     {
@@ -120,6 +120,8 @@ public class Enemy : Entity, IHookable
     {
         if (isHeld)
             FindObjectOfType<HookController>().Clear();
+        DOTween.Kill(rb);
+        DOTween.Kill(spriteRenderer);
     }
 
 }

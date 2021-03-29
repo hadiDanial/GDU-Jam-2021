@@ -9,8 +9,9 @@ using System;
 public class EnemyAI : MonoBehaviour
 {
     [Header("Enemy AI")]
-    [SerializeField] internal float attackDistance = 0.75f, attackTime = 0.5f, timeBetweenAttacks = 1f;
     [SerializeField] internal float detectionRadius = 5f;
+    [SerializeField] internal float attackDistance = 0.75f, attackTime = 0.5f, timeBetweenAttacks = 1f;
+    [SerializeField] internal float pauseAfterAttackTime = 0.75f;
     [SerializeField] internal float minJumpHeight = 0.25f, minJumpDistance = 0.75f;
     [SerializeField] internal bool canAttackInAir = false;
     [SerializeField] internal bool canAttackVertically = false;
@@ -213,7 +214,7 @@ public class EnemyAI : MonoBehaviour
         yield return myTween.WaitForCompletion();
         timeToAttack = timeBetweenAttacks;
         rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(pauseAfterAttackTime);
         canAttack = true;
         doneAttacking = true;
     }
@@ -225,12 +226,12 @@ public class EnemyAI : MonoBehaviour
     }
     #endregion
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    internal virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
             Damage();
     }
-    private void OnDrawGizmos()
+    internal virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
