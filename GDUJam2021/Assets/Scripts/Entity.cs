@@ -40,10 +40,10 @@ public class Entity : MonoBehaviour
     [Header("Other")]
     [SerializeField] protected GameObject GFX;
     [SerializeField] internal SpriteRenderer spriteRenderer;
-    [SerializeField] public Color normalColor;
-    [SerializeField] public Color heldColor;
-    [SerializeField] public Color deadColor;
-    [SerializeField] public Color damageColor;
+    [SerializeField, ColorUsage(true, true)] public Color normalColor;
+    [SerializeField, ColorUsage(true, true)] public Color heldColor;
+    [SerializeField, ColorUsage(true, true)] public Color deadColor;
+    [SerializeField, ColorUsage(true, true)] public Color damageColor;
 
     internal AudioSource audioSource;
     internal Rigidbody2D rb;
@@ -61,6 +61,7 @@ public class Entity : MonoBehaviour
     internal bool canJump => _isGrounded || jumpTimeElapsed >= 0;
     internal bool isCollided, hasJumped, hasDoubleJumped;
     internal float totalSpeedMultiplier => movementSpeed * currentMovementMultiplier * internalSpeedMultiplier;
+    internal int sign = 1;
 
     internal virtual void Awake()
     {
@@ -76,6 +77,8 @@ public class Entity : MonoBehaviour
     internal void SetMovementVector()
     {
         movementVector = useGravity ? new Vector2(input.x, 0).normalized : input;
+        if (movementVector.x > 0) sign = 1;
+        else if (movementVector.x < 0) sign = -1;
     }
 
     internal void ResetVelocityAndInput()
@@ -220,7 +223,6 @@ public class Entity : MonoBehaviour
                 SetInvulnerable();
                 Invoke("SetVulnerable", invulnerabilityTime);
             }
-            // TODO - SetInvulnerable() and Disable it via animation event
         }
     }
     /// <summary>
