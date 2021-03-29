@@ -8,35 +8,52 @@ using UnityEngine;
 public class Enemy : Entity, IHookable
 {
     [Header("Enemy Layers")]
-    [SerializeField] private int enemyLayer = 9;
-    [SerializeField] private int heldEnemyLayer = 10;
+    [SerializeField] internal int enemyLayer = 9;
+    [SerializeField] internal int heldEnemyLayer = 10;
     [SerializeField] private Transform originalParent = null;
     [SerializeField] bool isHeld = false;
     [SerializeField] bool rotateToDirection = false;
 
     private EnemyAI enemyAI;
     internal float mass, drag;
-
+    Vector2 currentPos, prevPos, dir1, dir2;
     internal override void Awake()
     {
         base.Awake();
         enemyAI = GetComponent<EnemyAI>();
         mass = rb.mass;
         drag = rb.drag;
+        originalParent = transform.parent;
+        prevPos = transform.position;
     }
 
     internal void Update()
     {
+        currentPos = transform.position;
+        dir1 = currentPos - prevPos;
+        dir1 *= 10;
+        prevPos = currentPos;
         if (rotateToDirection)
         {
-            transform.right = rb.velocity;
+            if (enemyAI.rotateDuringAttack && !enemyAI.doneAttacking)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, MathP.RotationFromDirection(-dir1), Time.deltaTime * 5f);
+            }
+            else
+                transform.right = rb.velocity;
         }
         else
         {
             transform.rotation = Quaternion.identity;
             RotateGFX(input);
         }
+    }
 
+
+    internal void ResetEnemy()
+    {
+        enemyAI.ResetAI();
+        
     }
 
     #region HOOK_BEHAVIOR
@@ -113,6 +130,7 @@ public class Enemy : Entity, IHookable
     internal override void Kill()
     {
         enemyAI.SetDeadSprite();
+        ResetLayer();
         base.Kill();
     }
 

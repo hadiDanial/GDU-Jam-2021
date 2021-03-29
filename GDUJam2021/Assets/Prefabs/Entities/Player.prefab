@@ -662,7 +662,7 @@ MonoBehaviour:
   holdPoint: {fileID: 43660770}
   backthrowTarget: {fileID: 4062916532448685022}
   hookDistance: 4.5
-  throwSpeed: 6
+  throwSpeed: 7
   reelTime: 0.4
   backthowTime: 0.65
   swingRadius: 2.5
@@ -684,9 +684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea861ce2f91eb9499d6eef9ad9b13c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
+  movementSpeed: 6
   stoppingPower: 0.125
-  jumpForce: 2.75
+  jumpForce: 4
   jumpGracePeriod: 0.1
   canDoubleJump: 0
   airControlPercent: 0.45
@@ -696,9 +696,9 @@ MonoBehaviour:
   fallGravity: 2
   maxHealth: 10
   currentHealth: 0
-  invulnerabilityTime: 0.95
+  invulnerabilityTime: 0.3
   currentEntityState: 0
-  hitSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 6c05149e5a2fba64ba172e25a61074b7, type: 3}
   deathSound: {fileID: 8300000, guid: 257df6b5600731a498cea0ccbc20d737, type: 3}
   groundCheckLeft: {fileID: 7778866689972720549}
   groundCheckRight: {fileID: 7778866690583161954}
@@ -717,7 +717,8 @@ MonoBehaviour:
   damageColor: {r: 2, g: 0.18039216, b: 0.18039216, a: 1}
   hookSound: {fileID: 8300000, guid: 5594ff69bb3c5474ab83437ed163e406, type: 3}
   throwSound: {fileID: 8300000, guid: 5f3f2e761cdf38e4a9576eb01bbc4e44, type: 3}
-  hook: {fileID: 0}
+  hook: {fileID: 7778866689749664974}
+  currentCheckpoint: {fileID: 0}
 --- !u!70 &7778866689749664975
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -747,7 +748,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 4.5
-  m_LinearDrag: 0
+  m_LinearDrag: 1.5
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}

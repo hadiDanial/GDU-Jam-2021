@@ -18,8 +18,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] internal bool canDamagePlayer = false;
     [SerializeField] public List<Transform> patrolPoints;
     [SerializeField] public Sprite idleSprite, attackSprite, deadSprite, heldSprite;
-
     [SerializeField] private float nextWaypointDistance = 0.25f;
+    [SerializeField] private AudioClip attackClip;
 
     internal Enemy enemy;
     internal Seeker seeker;
@@ -35,8 +35,8 @@ public class EnemyAI : MonoBehaviour
     internal bool canAttack = true;
     internal bool reachedEndOfPath;
     internal bool waitForRepath;
+    [SerializeField] internal bool rotateDuringAttack;
 
-    private const float PLAYER_WIDTH = 0.5f;
     private void Awake()
     {
         enemy = GetComponent<Enemy>();
@@ -48,9 +48,7 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("CalculatePath", 0, 0.5f);
-        target = patrolPoints[0];
-        prevTarget = target;
-        enemy.spriteRenderer.sprite = idleSprite;
+        ResetAI();
     }
 
     internal virtual void CalculatePath()
@@ -67,6 +65,20 @@ public class EnemyAI : MonoBehaviour
             pathIndex = 0;
             waitForRepath = false;
         }
+    }
+
+    internal void ResetAI()
+    {
+        path = null;
+        target = patrolPoints[0];
+        prevTarget = target;
+        enemy.spriteRenderer.sprite = idleSprite;
+        timeToAttack = 0;
+        followingPlayer = false;
+        doneAttacking = true;
+        canAttack = true;
+        pathIndex = 0;
+        patrolIndex = 0;
     }
 
     internal void PauseAI()
@@ -208,6 +220,7 @@ public class EnemyAI : MonoBehaviour
         float y = (canAttackVertically) ? playerController.transform.position.y : transform.position.y;
         Vector2 attackOffset = new Vector2(x, y);// - PLAYER_WIDTH * Vector2.right;//(Vector2)transform.position + (sign * attackDistance * Vector2.right).normalized * attackDistance;
         Tween myTween = rb.DOMove(attackOffset, attackTime);
+        enemy.audioSource.PlayOneShot(attackClip);
         yield return myTween.WaitForCompletion();
         canDamagePlayer = false;
         myTween = rb.DOMove(originalPosition, attackTime / 2f);

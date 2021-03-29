@@ -34,16 +34,19 @@ public class FlyingEnemyAI : EnemyAI
         enemy.ResetVelocityAndInput();
         float x = playerController.transform.position.x;
         float y = playerController.transform.position.y;
-        Vector2 attackOffset = new Vector2(x, y);
+        Vector2 attackOffset = playerController.transform.position;
+        if (transform.parent != null)
+            attackOffset = transform.parent.InverseTransformPoint(attackOffset);
         Vector2[] path = new Vector2[3];
         path[0] = transform.localPosition;
         path[1] = attackOffset;
-        path[2] = new Vector2(transform.position.x + enemy.sign * attackEndDistance + attackOffset.x, transform.position.y);
+        int sign = (attackOffset.x - transform.localPosition.x) >= 0 ? 1 : -1;
+        path[2] = new Vector2(path[0].x + sign * attackEndDistance, path[0].y);
         Tween myTween = rb.DOLocalPath(path, attackTime, PathType.CatmullRom, PathMode.Sidescroller2D, 10, Color.green);
         yield return myTween.WaitForCompletion();
         canDamagePlayer = false;
         timeToAttack = timeBetweenAttacks;
-        enemy.col.enabled = true;
+        gameObject.layer = enemy.enemyLayer;
         rb.isKinematic = false;
         rb.mass = enemy.mass;
         yield return new WaitForSeconds(pauseAfterAttackTime);
@@ -70,7 +73,7 @@ public class FlyingEnemyAI : EnemyAI
         base.OnCollisionEnter2D(collision);
         if(collision.gameObject.GetComponent<PlayerController>())
         {
-            enemy.col.enabled = false;
+            gameObject.layer = enemy.heldEnemyLayer;
         }
     }
 }

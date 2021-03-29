@@ -63,6 +63,8 @@ public class Entity : MonoBehaviour
     internal float totalSpeedMultiplier => movementSpeed * currentMovementMultiplier * internalSpeedMultiplier;
     internal int sign = 1;
 
+    Vector3 initialPosition;
+
     internal virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -138,6 +140,7 @@ public class Entity : MonoBehaviour
     {
         currentHealth = maxHealth;
         initialTransform = transform;
+        initialPosition = transform.position;
         initialState = currentEntityState;
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
@@ -155,7 +158,7 @@ public class Entity : MonoBehaviour
     internal virtual void ResetEntity()
     {
         currentHealth = maxHealth;
-        transform.position = initialTransform.position;
+        transform.position = initialPosition;
         transform.rotation = initialTransform.rotation;
         currentEntityState = initialState;
         if (col != null) col.isTrigger = false;
@@ -212,12 +215,13 @@ public class Entity : MonoBehaviour
         if (canTakeDamage)
         {
             currentHealth -= dmg;
-            if(currentHealth <= 0)
+            if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 Kill();
             }
-            // TODO - Sound effect here
+            else
+                audioSource.PlayOneShot(hitSound);
             if(setInvulnerable)
             {
                 SetInvulnerable();
@@ -250,8 +254,13 @@ public class Entity : MonoBehaviour
         // TODO - Sound effect here
         audioSource.PlayOneShot(deathSound);
         CancelInvoke();
-        Destroy(gameObject, 0.5f);
+        Invoke("Deactivate", invulnerabilityTime);
     }
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
     internal virtual void SetInvulnerable()
     {
         canTakeDamage = false;

@@ -32,18 +32,13 @@ public class HookController : MonoBehaviour
     float hitPosX, hitPosY;
     private void Start()
     {
-        //hook.canCollide = false;
-        //hook.hookController = this;
         hook.Setup(hookLayer, aimRadius, this);
         hitPosX = hookPos.transform.localPosition.x;
         hitPosY = hookPos.transform.localPosition.y;
         defaultHoldPosition = holdPoint.position;
         playerController = GetComponent<PlayerController>();
     }
-    private void Update()
-    {
 
-    }
     internal void SetPlayer(Transform transform)
     {
         playerTransform = transform;
@@ -55,7 +50,6 @@ public class HookController : MonoBehaviour
         if(useArrow)
         {
             hookGameObject.SetActive(true);
-            //arrow.transform.right = aimDirection;
             hookGameObject.transform.rotation = MathP.RotationFromDirection(-aimDirection);
             if (aimDirection.x < 0)
             {
@@ -76,8 +70,6 @@ public class HookController : MonoBehaviour
             aimDirection = new Vector2(aimDirection.x, Mathf.Clamp(aimDirection.y, 0, 2));
         if (!lockBackthrowTarget)
             backthrowTarget.localPosition = -aimDirection * hookDistance;
-        //if (state == HookState.Held)
-        //    target.SetPosition((Vector2)transform.position + aimDirection.normalized * swingRadius);
     }
 
     /// <summary>
@@ -144,8 +136,9 @@ public class HookController : MonoBehaviour
         state = HookState.Empty;
     }
 
-    internal void Clear()
+    internal void Clear(bool throwObj = false)
     {
+        if (targetHookable != null && throwObj) targetHookable.Throw(Vector2.zero);
         targetHookable = null;
         targetTransform = null;
         state = HookState.Empty;

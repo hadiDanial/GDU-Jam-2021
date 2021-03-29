@@ -9,6 +9,8 @@ public class PlayerController : Entity
 {
     public AudioClip hookSound, throwSound;
     public HookController hook;
+    public Checkpoint currentCheckpoint;
+
 
     Vector2 prevAim = Vector2.right;
 
@@ -17,6 +19,14 @@ public class PlayerController : Entity
         base.Awake();
         hook = GetComponent<HookController>();
         hook.SetPlayer(transform);
+    }
+
+    internal void ResetPlayer(Vector3 spawnPosition)
+    {
+        ResetEntity();
+        ResetVelocityAndInput();
+        transform.position = spawnPosition;
+        hook.Clear(true);
     }
 
     #region Input
@@ -34,6 +44,13 @@ public class PlayerController : Entity
             return;
         input.x = value.Get<float>();
         SetMovementVector();
+    }
+
+    internal void SetActiveCheckpoint(Checkpoint checkpoint)
+    {
+        if (currentCheckpoint != null)
+            currentCheckpoint.isActive = false;
+        currentCheckpoint = checkpoint;
     }
 
     public void OnVertical(InputValue value)
@@ -79,6 +96,16 @@ public class PlayerController : Entity
         SetAim(aim);
     }
 
+    public void OnReset()
+    {
+        if (currentCheckpoint != null)
+            currentCheckpoint.ResetCheckpoint(this);
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
+    }
+
     private void SetAim(Vector2 aim)
     {
         if (aim == Vector2.zero)
@@ -102,6 +129,6 @@ public class PlayerController : Entity
         // TODO - Sound effect here
         audioSource.PlayOneShot(deathSound);
         CancelInvoke();
-        //Destroy(gameObject, 0.5f);
+        OnReset();
     }
 }

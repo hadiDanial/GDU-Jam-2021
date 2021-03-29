@@ -135,46 +135,13 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Shift + Right Click",
-                    "id": "f9d9cf81-1e9d-43f4-be10-78b03d5a4c6c",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Backthrow",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "b6d48941-2099-4587-a58d-13c8cd351093",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and Mouse;Gamepad",
-                    "action": "Backthrow",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "9389034c-b191-48df-af43-b44271f9e3bf",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and Mouse;Gamepad",
-                    "action": "Backthrow",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "02a4f579-6501-42b8-a54e-03d931d7d7d0",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse;Gamepad",
-                    "action": "Swing",
+                    "action": "Backthrow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -408,6 +375,39 @@
                     "action": "Reset",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Shift + Right Click",
+                    "id": "f9d9cf81-1e9d-43f4-be10-78b03d5a4c6c",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swing",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "b6d48941-2099-4587-a58d-13c8cd351093",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse;Gamepad",
+                    "action": "Swing",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "9389034c-b191-48df-af43-b44271f9e3bf",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse;Gamepad",
+                    "action": "Swing",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

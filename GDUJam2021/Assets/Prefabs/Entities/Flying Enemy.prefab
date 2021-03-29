@@ -278,6 +278,8 @@ MonoBehaviour:
   deadSprite: {fileID: 21300000, guid: 50dc783ad5c4839438a0b5159d154924, type: 3}
   heldSprite: {fileID: 21300000, guid: 50dc783ad5c4839438a0b5159d154924, type: 3}
   nextWaypointDistance: 1
+  attackClip: {fileID: 8300000, guid: b8c8cf85a8737ee4ca30a194ce859dd9, type: 3}
+  rotateDuringAttack: 1
   verticalOffsetDistance: 1.5
   horizontalOffsetDistance: 2.5
   attackEndDistance: 3

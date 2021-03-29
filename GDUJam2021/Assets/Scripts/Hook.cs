@@ -99,28 +99,6 @@ public class Hook : MonoBehaviour
         //OldSetSpline();
     }
 
-    private void OldSetSpline()
-    {
-        controller.spline.SetPosition(0, splinePositions[0]);
-        controller.spline.SetPosition(1, splinePositions[1]);
-
-        controller.spline.SetSpriteIndex(0, 1);
-        controller.spline.SetSpriteIndex(1, 0);
-        for (int i = 2; i < splinePositions.Length - 2; i++)
-        {
-            controller.spline.SetPosition(i, splinePositions[i]);
-
-        }
-
-        int index = splinePositions.Length - 2;
-        controller.spline.SetPosition(index, splinePositions[index]);
-
-        controller.spline.SetPosition(index, splinePositions[index] - (splinePositions[index - 1] - splinePositions[index]).normalized * 0.5f);
-        controller.spline.SetSpriteIndex(index, 2);
-
-        controller.RefreshSpriteShape();
-    }
-
     internal void ThrowHead(Vector2 aimDirection, float hookDistance, Hook hook, float currentTime, Transform returnTarget = null)
     {
         if (!canThrow) return;
@@ -183,6 +161,13 @@ public class Hook : MonoBehaviour
             ActivateSpriteShape(false);
             hookController.OnReelFinished();
         }
+    }
+
+    public void Clear()
+    {
+        StopAllCoroutines();
+        hookHead.transform.position = restPosition.position;
+        ActivateSpriteShape(false);
     }
 
     private void OnDrawGizmos()

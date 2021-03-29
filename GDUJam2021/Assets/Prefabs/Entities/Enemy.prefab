@@ -166,6 +166,8 @@ MonoBehaviour:
   deadSprite: {fileID: 21300000, guid: bec18004194f7c946a38efd909ef0055, type: 3}
   heldSprite: {fileID: 21300000, guid: aa0edb04f7524044b91b5d1a2fa7c8c7, type: 3}
   nextWaypointDistance: 0.8
+  attackClip: {fileID: 8300000, guid: 79496234ade0929459383871f3abf82d, type: 3}
+  rotateDuringAttack: 0
 --- !u!50 &2478569875966020105
 Rigidbody2D:
   serializedVersion: 4
