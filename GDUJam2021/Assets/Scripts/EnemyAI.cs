@@ -186,6 +186,8 @@ public class EnemyAI : MonoBehaviour
         doneAttacking = false;
         canAttack = false;
         canDamagePlayer = true;
+        rb.velocity = Vector2.zero;
+        enemy.ResetVelocityAndInput();
         //float sign = Mathf.Sign(enemy.input.x);
         Vector2 originalPosition = transform.position;
         float x = playerController.transform.position.x;

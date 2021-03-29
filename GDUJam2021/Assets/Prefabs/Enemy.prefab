@@ -110,6 +110,7 @@ MonoBehaviour:
   fallGravity: 2
   maxHealth: 1
   currentHealth: 0
+  invulnerabilityTime: 0.15
   currentEntityState: 0
   hitSound: {fileID: 0}
   deathSound: {fileID: 8300000, guid: e18959d46b63f3c4c8cc020a433cf848, type: 3}
@@ -127,6 +128,7 @@ MonoBehaviour:
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   heldColor: {r: 0.3726415, g: 0.56243044, b: 1, a: 1}
   deadColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
+  damageColor: {r: 0.7058824, g: 0.36862746, b: 0.36862746, a: 1}
   enemyLayer: 9
   heldEnemyLayer: 10
   originalParent: {fileID: 0}
@@ -143,18 +145,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24f810216fa183479c2b2746f26fd99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 0.75
+  attackDistance: 1.75
   attackTime: 0.5
+  timeBetweenAttacks: 1
   detectionRadius: 5
   minJumpHeight: 0.25
   minJumpDistance: 0.75
+  canAttackInAir: 1
+  canAttackVertically: 0
   canDamagePlayer: 0
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  nextWaypointDistance: 0.65
+  nextWaypointDistance: 0.8
 --- !u!50 &2478569875966020105
 Rigidbody2D:
   serializedVersion: 4

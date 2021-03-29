@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(AudioSource))]
 public class Entity : MonoBehaviour
@@ -24,6 +25,7 @@ public class Entity : MonoBehaviour
     [Header("Health")]
     [SerializeField] protected int maxHealth;
     [SerializeField] internal int currentHealth;
+    [SerializeField] internal float invulnerabilityTime = 0.15f;
     [SerializeField] internal EntityState currentEntityState = EntityState.Active;
     [SerializeField] internal AudioClip hitSound, deathSound;
 
@@ -41,6 +43,7 @@ public class Entity : MonoBehaviour
     [SerializeField] public Color normalColor;
     [SerializeField] public Color heldColor;
     [SerializeField] public Color deadColor;
+    [SerializeField] public Color damageColor;
 
     internal AudioSource audioSource;
     internal Rigidbody2D rb;
@@ -74,6 +77,13 @@ public class Entity : MonoBehaviour
     {
         movementVector = useGravity ? new Vector2(input.x, 0).normalized : input;
     }
+
+    internal void ResetVelocityAndInput()
+    {
+        input = Vector2.zero;
+        rb.velocity = Vector2.zero;
+    }
+
     internal virtual void Move()
     {
         isGrounded = _isGrounded;
@@ -205,6 +215,11 @@ public class Entity : MonoBehaviour
                 Kill();
             }
             // TODO - Sound effect here
+            if(setInvulnerable)
+            {
+                SetInvulnerable();
+                Invoke("SetVulnerable", invulnerabilityTime);
+            }
             // TODO - SetInvulnerable() and Disable it via animation event
         }
     }
@@ -228,7 +243,7 @@ public class Entity : MonoBehaviour
         currentEntityState = EntityState.Dead;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
-        spriteRenderer.color = deadColor;
+        spriteRenderer.DOColor(deadColor, invulnerabilityTime / 2f);
         if (col != null) col.isTrigger = true;
         // TODO - Sound effect here
         audioSource.PlayOneShot(deathSound);
@@ -238,11 +253,13 @@ public class Entity : MonoBehaviour
     internal virtual void SetInvulnerable()
     {
         canTakeDamage = false;
+        spriteRenderer.DOColor(damageColor, invulnerabilityTime / 2f);
         // TODO - Animation
     }
     internal virtual void SetVulnerable()
     {
         canTakeDamage = true;
+        spriteRenderer.DOColor(normalColor, invulnerabilityTime / 3f);
     }
 
     #endregion

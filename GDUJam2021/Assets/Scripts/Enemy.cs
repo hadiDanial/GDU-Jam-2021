@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,7 @@ public class Enemy : Entity, IHookable
         transform.SetParent(parent);
         gameObject.layer = heldEnemyLayer;
         transform.localPosition = Vector2.zero;
-        spriteRenderer.color = heldColor;
+        spriteRenderer.DOColor(heldColor, invulnerabilityTime / 2f);
         currentEntityState = EntityState.Inactive;
         enemyAI.PauseAI();
         CancelInvoke();
@@ -70,7 +71,7 @@ public class Enemy : Entity, IHookable
     {
         gameObject.layer = enemyLayer;
         isHeld = false;
-        spriteRenderer.color = normalColor;
+        spriteRenderer.DOColor(normalColor, invulnerabilityTime / 3f);
         currentEntityState = EntityState.Active;
 
     }
@@ -97,4 +98,5 @@ public class Enemy : Entity, IHookable
         if (isHeld)
             FindObjectOfType<HookController>().Clear();
     }
+
 }
