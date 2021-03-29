@@ -16,23 +16,24 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] internal bool canAttackVertically = false;
     [SerializeField] internal bool canDamagePlayer = false;
     [SerializeField] public List<Transform> patrolPoints;
+    [SerializeField] public Sprite idleSprite, attackSprite, deadSprite, heldSprite;
 
     [SerializeField] private float nextWaypointDistance = 0.25f;
 
-    private Enemy enemy;
-    private Seeker seeker;
-    private Path path;
-    private Rigidbody2D rb;
-    private Transform target, prevTarget;
-    private PlayerController playerController;
-    private Coroutine attackCoroutine;
-    private int patrolIndex, pathIndex;
-    private float timeToAttack = 0;
-    private bool followingPlayer = false;
-    private bool doneAttacking = true;
-    private bool canAttack = true;
-    private bool reachedEndOfPath;
-    private bool waitForRepath;
+    internal Enemy enemy;
+    internal Seeker seeker;
+    internal Path path;
+    internal Rigidbody2D rb;
+    internal Transform target, prevTarget;
+    internal PlayerController playerController;
+    internal Coroutine attackCoroutine;
+    internal int patrolIndex, pathIndex;
+    internal float timeToAttack = 0;
+    internal bool followingPlayer = false;
+    internal bool doneAttacking = true;
+    internal bool canAttack = true;
+    internal bool reachedEndOfPath;
+    internal bool waitForRepath;
 
     private const float PLAYER_WIDTH = 0.5f;
     private void Awake()
@@ -48,15 +49,16 @@ public class EnemyAI : MonoBehaviour
         InvokeRepeating("CalculatePath", 0, 0.5f);
         target = patrolPoints[0];
         prevTarget = target;
+        enemy.spriteRenderer.sprite = idleSprite;
     }
 
-    private void CalculatePath()
+    internal virtual void CalculatePath()
     {
         if (seeker.IsDone())
             seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
-    void OnPathComplete(Path p)
+    internal void OnPathComplete(Path p)
     {
         if (!p.error)
         {
@@ -77,7 +79,7 @@ public class EnemyAI : MonoBehaviour
 
 
     #region AI
-    private void Update()
+    internal virtual void Update()
     {
         timeToAttack -= Time.deltaTime;
         if (path == null || enemy.currentEntityState != EntityState.Active) return;
@@ -96,11 +98,13 @@ public class EnemyAI : MonoBehaviour
         {
             if (followingPlayer)
             {
+                enemy.spriteRenderer.sprite = attackSprite;
                 if (distanceToPlayer < attackDistance && timeToAttack <= 0)
                     Attack();
             }
             else
             {
+                enemy.spriteRenderer.sprite = idleSprite;
                 Patrol();
             }
             EnemyMovement();
@@ -110,6 +114,15 @@ public class EnemyAI : MonoBehaviour
         float distance = Vector2.Distance(rb.position, path.vectorPath[pathIndex]);
         if (distance < nextWaypointDistance && pathIndex < path.vectorPath.Count)
             pathIndex++;        
+    }
+
+    internal void SetHeldSprite()
+    {
+        enemy.spriteRenderer.sprite = heldSprite;
+    }
+    internal void SetDeadSprite()
+    {
+        enemy.spriteRenderer.sprite = deadSprite;
     }
 
     private float SelectTarget()
@@ -181,7 +194,7 @@ public class EnemyAI : MonoBehaviour
         attackCoroutine = StartCoroutine(AttackCoroutine());
     }
 
-    public IEnumerator AttackCoroutine()
+    internal virtual IEnumerator AttackCoroutine()
     {
         doneAttacking = false;
         canAttack = false;
@@ -205,7 +218,7 @@ public class EnemyAI : MonoBehaviour
         doneAttacking = true;
     }
 
-    private void Damage()
+    internal virtual void Damage()
     {
         if (canDamagePlayer)
             playerController.Damage(1, true);
