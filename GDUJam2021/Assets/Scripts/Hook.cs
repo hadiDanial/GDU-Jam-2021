@@ -71,8 +71,11 @@ public class Hook : MonoBehaviour
             splinePositions[2] = hookHead.transform.localPosition;
             splinePositions[1] = (splinePositions[0] + splinePositions[2]) / 2f;
         }
-        if (Vector2.Distance(splinePositions[0], splinePositions[1]) < 0.25f ||
-            Vector2.Distance(splinePositions[1], splinePositions[2]) < 0.25f)
+
+        const float minDistance = 0.45f;
+        if (Vector2.Distance(splinePositions[0], splinePositions[1]) < minDistance ||
+            Vector2.Distance(splinePositions[1], splinePositions[2]) < minDistance ||
+            Vector2.Distance(splinePositions[0], splinePositions[2]) < minDistance)
         {
             ActivateSpriteShape(false);
             return;
