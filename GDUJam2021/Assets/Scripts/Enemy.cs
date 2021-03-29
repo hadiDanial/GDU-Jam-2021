@@ -12,19 +12,31 @@ public class Enemy : Entity, IHookable
     [SerializeField] private int heldEnemyLayer = 10;
     [SerializeField] private Transform originalParent = null;
     [SerializeField] bool isHeld = false;
+    [SerializeField] bool rotateToDirection = false;
 
     private EnemyAI enemyAI;
+    private float mass, drag;
 
     internal override void Awake()
     {
         base.Awake();
         enemyAI = GetComponent<EnemyAI>();
+        mass = rb.mass;
+        drag = rb.drag;
     }
 
     internal void Update()
     {
-        transform.rotation = Quaternion.identity;
-        
+        if (rotateToDirection)
+        {
+            transform.right = rb.velocity;
+        }
+        else
+        {
+            transform.rotation = Quaternion.identity;
+            RotateGFX(input);
+        }
+
     }
 
     #region HOOK_BEHAVIOR
@@ -37,11 +49,14 @@ public class Enemy : Entity, IHookable
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
+        rb.mass = 1;
+        rb.drag = 1;
         transform.SetParent(parent);
         gameObject.layer = heldEnemyLayer;
         transform.localPosition = Vector2.zero;
-        spriteRenderer.DOColor(heldColor, invulnerabilityTime / 2f);
+        spriteRenderer.DOColor(heldColor, invulnerabilityTime);
         currentEntityState = EntityState.Inactive;
+        enemyAI.SetHeldSprite();
         enemyAI.PauseAI();
         CancelInvoke();
     }
@@ -71,8 +86,10 @@ public class Enemy : Entity, IHookable
     {
         gameObject.layer = enemyLayer;
         isHeld = false;
-        spriteRenderer.DOColor(normalColor, invulnerabilityTime / 3f);
+        spriteRenderer.DOColor(normalColor, invulnerabilityTime);
         currentEntityState = EntityState.Active;
+        rb.mass = mass;
+        rb.drag = drag;
 
     }
     #endregion
@@ -91,6 +108,12 @@ public class Enemy : Entity, IHookable
             }
             Damage(1);
         }
+    }
+
+    internal override void Kill()
+    {
+        enemyAI.SetDeadSprite();
+        base.Kill();
     }
 
     private void OnDestroy()
